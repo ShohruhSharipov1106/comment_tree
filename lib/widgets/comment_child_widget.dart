@@ -17,7 +17,7 @@ class CommentChildWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final EdgeInsets padding = EdgeInsets.only(top: 8);
+    final EdgeInsets padding = EdgeInsets.only(left: avatarRoot.width, top: 8);
 
     return CustomPaint(
       painter: _Painter(
