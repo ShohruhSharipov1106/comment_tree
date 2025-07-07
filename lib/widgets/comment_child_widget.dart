@@ -33,8 +33,8 @@ class CommentChildWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            avatar,
-            const SizedBox(width: 8),
+            // avatar,
+            // const SizedBox(width: 8),
             Expanded(child: content),
           ],
         ),
