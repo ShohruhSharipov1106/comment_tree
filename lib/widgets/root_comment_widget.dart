@@ -3,32 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RootCommentWidget extends StatelessWidget {
-  final PreferredSizeWidget avatar;
   final Widget content;
 
-  const RootCommentWidget(this.avatar, this.content);
+  const RootCommentWidget(this.content);
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: RootPainter(
-        avatar.preferredSize,
-        context.watch<TreeThemeData>().lineColor,
-        context.watch<TreeThemeData>().lineWidth,
-          Directionality.of(context)
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          avatar,
-          const SizedBox(
-            width: 8,
-          ),
-          Expanded(
-            child: content,
-          )
-        ],
-      ),
+      painter: RootPainter(Size(0, 0), context.watch<TreeThemeData>().lineColor,
+          context.watch<TreeThemeData>().lineWidth, Directionality.of(context)),
+      child: content,
     );
   }
 }
@@ -49,11 +33,9 @@ class RootPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    if(textDecoration == TextDirection.rtl)
-    canvas.translate(size.width, 0);
+    if (textDecoration == TextDirection.rtl) canvas.translate(size.width, 0);
     double dx = avatar!.width / 2;
-    if(textDecoration == TextDirection.rtl)
-      dx *= -1;
+    if (textDecoration == TextDirection.rtl) dx *= -1;
     canvas.drawLine(
       Offset(dx, avatar!.height),
       Offset(dx, size.height),

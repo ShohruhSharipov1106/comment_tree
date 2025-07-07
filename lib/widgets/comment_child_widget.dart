@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CommentChildWidget extends StatelessWidget {
-  final PreferredSizeWidget? avatar;
+  final PreferredSizeWidget avatar;
   final Widget? content;
   final bool? isLast;
   final Size? avatarRoot;
@@ -17,12 +17,7 @@ class CommentChildWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isRTL = Directionality.of(context) == TextDirection.rtl;
-    final EdgeInsets padding = EdgeInsets.only(
-        left: isRTL ? 0 : avatarRoot!.width + 8.0,
-        bottom: 8,
-        top: 8,
-        right: isRTL ? avatarRoot!.width + 8.0 : 0);
+    final EdgeInsets padding = EdgeInsets.only(left: avatarRoot!.width + 8.0, bottom: 8, top: 8, right: 0);
 
     return CustomPaint(
       painter: _Painter(
@@ -30,7 +25,7 @@ class CommentChildWidget extends StatelessWidget {
         padding: padding,
         textDirection: Directionality.of(context),
         avatarRoot: avatarRoot,
-        avatarChild: avatar!.preferredSize,
+        avatarChild: avatar.preferredSize,
         pathColor: context.watch<TreeThemeData>().lineColor,
         strokeWidth: context.watch<TreeThemeData>().lineWidth,
       ),
@@ -39,10 +34,8 @@ class CommentChildWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            avatar!,
-            const SizedBox(
-              width: 8,
-            ),
+            avatar,
+            const SizedBox(width: 8),
             Expanded(child: content!),
           ],
         ),

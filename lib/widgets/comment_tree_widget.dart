@@ -17,46 +17,42 @@ class CommentTreeWidget<R, C> extends StatefulWidget {
   final R root;
   final List<C> replies;
 
-  final AvatarWidgetBuilder<R>? avatarRoot;
-  final ContentBuilder<R>? contentRoot;
+  final AvatarWidgetBuilder<R> avatarRoot;
+  final Widget rootWidget;
 
-  final AvatarWidgetBuilder<C>? avatarChild;
-  final ContentBuilder<C>? contentChild;
+  final AvatarWidgetBuilder<C> avatarChild;
+  final Widget contentWidget;
   final TreeThemeData treeThemeData;
 
   const CommentTreeWidget(
     this.root,
     this.replies, {
     this.treeThemeData = const TreeThemeData(lineWidth: 1),
-    this.avatarRoot,
-    this.contentRoot,
-    this.avatarChild,
-    this.contentChild,
+    required this.avatarRoot,
+    required this.rootWidget,
+    required this.avatarChild,
+    required this.contentWidget,
   });
 
   @override
-  _CommentTreeWidgetState<R, C> createState() =>
-      _CommentTreeWidgetState<R, C>();
+  _CommentTreeWidgetState<R, C> createState() => _CommentTreeWidgetState<R, C>();
 }
 
 class _CommentTreeWidgetState<R, C> extends State<CommentTreeWidget<R, C>> {
   @override
   Widget build(BuildContext context) {
-    final PreferredSize avatarRoot = widget.avatarRoot!(context, widget.root);
+    final PreferredSize avatarRoot = widget.avatarRoot(context, widget.root);
     return Provider<TreeThemeData>.value(
       value: widget.treeThemeData,
       child: Column(
         children: [
-          RootCommentWidget(
-            avatarRoot,
-            widget.contentRoot!(context, widget.root),
-          ),
+          RootCommentWidget(widget.rootWidget),
           ...widget.replies.map(
             (e) => CommentChildWidget(
               isLast: widget.replies.indexOf(e) == (widget.replies.length - 1),
-              avatar: widget.avatarChild!(context, e),
+              avatar: widget.avatarChild(context, e),
               avatarRoot: avatarRoot.preferredSize,
-              content: widget.contentChild!(context, e),
+              content: widget.contentWidget,
             ),
           )
         ],
