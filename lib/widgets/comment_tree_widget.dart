@@ -11,20 +11,16 @@ typedef AvatarWidgetBuilder<T> = PreferredSize Function(
 typedef ContentBuilder<T> = Widget Function(BuildContext context, T value);
 
 class CommentTreeWidget extends StatefulWidget {
-  final List replies;
+  final List<Widget> replies;
   final Size avatarRoot;
-  final Widget rootWidget;
   final AvatarWidgetBuilder avatarChild;
-  final Widget contentWidget;
   final TreeThemeData treeThemeData;
 
   const CommentTreeWidget({
     required this.replies,
     this.treeThemeData = const TreeThemeData(lineWidth: 1),
     required this.avatarRoot,
-    required this.rootWidget,
     required this.avatarChild,
-    required this.contentWidget,
   });
 
   @override
@@ -38,13 +34,13 @@ class _CommentTreeWidgetState extends State<CommentTreeWidget> {
       value: widget.treeThemeData,
       child: Column(
         children: [
-          RootCommentWidget(widget.rootWidget),
+          // RootCommentWidget(widget.rootWidget),
           ...widget.replies.map(
             (e) => CommentChildWidget(
               isLast: widget.replies.indexOf(e) == (widget.replies.length - 1),
               avatar: widget.avatarChild(context, e),
               avatarRoot: widget.avatarRoot,
-              content: widget.contentWidget,
+              content: e,
             ),
           )
         ],
