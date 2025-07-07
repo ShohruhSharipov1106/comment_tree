@@ -73,7 +73,7 @@ class _Painter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Path path = Path();
     double rootDx = avatarRoot!.width / 2;
-    path.moveTo(rootDx, 20);
+    path.moveTo(rootDx, 0);
     path.cubicTo(
       rootDx,
       0,
