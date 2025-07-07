@@ -23,7 +23,6 @@ class CommentChildWidget extends StatelessWidget {
       painter: _Painter(
         isLast: isLast,
         padding: padding,
-        textDirection: Directionality.of(context),
         avatarRoot: avatarRoot,
         avatarChild: avatar.preferredSize,
         pathColor: context.watch<TreeThemeData>().lineColor,
@@ -34,8 +33,8 @@ class CommentChildWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // avatar,
-            // const SizedBox(width: 8),
+            avatar,
+            const SizedBox(width: 8),
             Expanded(child: content),
           ],
         ),
@@ -48,7 +47,6 @@ class _Painter extends CustomPainter {
   bool isLast = false;
 
   EdgeInsets? padding;
-  final TextDirection textDirection;
   Size? avatarRoot;
   Size? avatarChild;
   Color? pathColor;
@@ -56,7 +54,6 @@ class _Painter extends CustomPainter {
 
   _Painter({
     required this.isLast,
-    required this.textDirection,
     this.padding,
     this.avatarRoot,
     this.avatarChild,
@@ -75,10 +72,8 @@ class _Painter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Path path = Path();
-    if (textDirection == TextDirection.rtl) canvas.translate(size.width, 0);
     double rootDx = avatarRoot!.width / 2;
-    if (textDirection == TextDirection.rtl) rootDx *= -1;
-    path.moveTo(rootDx, 0);
+    path.moveTo(rootDx, 20);
     path.cubicTo(
       rootDx,
       0,
