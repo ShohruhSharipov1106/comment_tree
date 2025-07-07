@@ -10,23 +10,16 @@ typedef AvatarWidgetBuilder<T> = PreferredSize Function(
 );
 typedef ContentBuilder<T> = Widget Function(BuildContext context, T value);
 
-class CommentTreeWidget<R, C> extends StatefulWidget {
-  // ignore: constant_identifier_names
-  static const ROUTE_NAME = 'CommentTreeWidget';
-
-  final R root;
-  final List<C> replies;
-
-  final AvatarWidgetBuilder<R> avatarRoot;
+class CommentTreeWidget extends StatefulWidget {
+  final List replies;
+  final Size avatarRoot;
   final Widget rootWidget;
-
-  final AvatarWidgetBuilder<C> avatarChild;
+  final AvatarWidgetBuilder avatarChild;
   final Widget contentWidget;
   final TreeThemeData treeThemeData;
 
-  const CommentTreeWidget(
-    this.root,
-    this.replies, {
+  const CommentTreeWidget({
+    required this.replies,
     this.treeThemeData = const TreeThemeData(lineWidth: 1),
     required this.avatarRoot,
     required this.rootWidget,
@@ -35,13 +28,12 @@ class CommentTreeWidget<R, C> extends StatefulWidget {
   });
 
   @override
-  _CommentTreeWidgetState<R, C> createState() => _CommentTreeWidgetState<R, C>();
+  _CommentTreeWidgetState createState() => _CommentTreeWidgetState();
 }
 
-class _CommentTreeWidgetState<R, C> extends State<CommentTreeWidget<R, C>> {
+class _CommentTreeWidgetState extends State<CommentTreeWidget> {
   @override
   Widget build(BuildContext context) {
-    final PreferredSize avatarRoot = widget.avatarRoot(context, widget.root);
     return Provider<TreeThemeData>.value(
       value: widget.treeThemeData,
       child: Column(
@@ -51,7 +43,7 @@ class _CommentTreeWidgetState<R, C> extends State<CommentTreeWidget<R, C>> {
             (e) => CommentChildWidget(
               isLast: widget.replies.indexOf(e) == (widget.replies.length - 1),
               avatar: widget.avatarChild(context, e),
-              avatarRoot: avatarRoot.preferredSize,
+              avatarRoot: widget.avatarRoot,
               content: widget.contentWidget,
             ),
           )

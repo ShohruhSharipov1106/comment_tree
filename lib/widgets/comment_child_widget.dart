@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 
 class CommentChildWidget extends StatelessWidget {
   final PreferredSizeWidget avatar;
-  final Widget? content;
-  final bool? isLast;
-  final Size? avatarRoot;
+  final Widget content;
+  final bool isLast;
+  final Size avatarRoot;
 
   const CommentChildWidget({
     required this.isLast,
@@ -17,11 +17,11 @@ class CommentChildWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final EdgeInsets padding = EdgeInsets.only(left: avatarRoot!.width + 8.0, bottom: 8, top: 8, right: 0);
+    final EdgeInsets padding = EdgeInsets.only(left: avatarRoot.width + 8.0, bottom: 8, top: 8, right: 0);
 
     return CustomPaint(
       painter: _Painter(
-        isLast: isLast!,
+        isLast: isLast,
         padding: padding,
         textDirection: Directionality.of(context),
         avatarRoot: avatarRoot,
@@ -36,7 +36,7 @@ class CommentChildWidget extends StatelessWidget {
           children: [
             avatar,
             const SizedBox(width: 8),
-            Expanded(child: content!),
+            Expanded(child: content),
           ],
         ),
       ),
