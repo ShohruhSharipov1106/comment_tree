@@ -34,7 +34,6 @@ class _CommentTreeWidgetState extends State<CommentTreeWidget> {
       value: widget.treeThemeData,
       child: Column(
         children: [
-          // RootCommentWidget(widget.rootWidget),
           ...widget.replies.map(
             (e) => CommentChildWidget(
               isLast: widget.replies.indexOf(e) == (widget.replies.length - 1),
